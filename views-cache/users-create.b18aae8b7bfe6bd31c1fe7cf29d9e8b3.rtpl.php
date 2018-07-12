@@ -1,4 +1,4 @@
-<!-- Content Wrapper. Contains page content -->
+<?php if(!class_exists('Rain\Tpl')){exit;}?><!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -27,19 +27,19 @@
           <div class="box-body">
             <div class="form-group">
               <label for="desperson">Nome</label>
-              <input type="text" class="form-control" id="desperson" name="desperson" placeholder="Digite o nome" >
+              <input type="text" class="form-control" id="desperson" name="desperson" placeholder="Digite o nome">
             </div>
             <div class="form-group">
               <label for="deslogin">Login</label>
-              <input type="text" class="form-control" id="deslogin" name="deslogin" placeholder="Digite o login" >
+              <input type="text" class="form-control" id="deslogin" name="deslogin" placeholder="Digite o login">
             </div>
             <div class="form-group">
               <label for="nrphone">Telefone</label>
-              <input type="tel" class="form-control" id="nrphone" name="nrphone" placeholder="Digite o telefone" >
+              <input type="tel" class="form-control" id="nrphone" name="nrphone" placeholder="Digite o telefone">
             </div>
             <div class="form-group">
               <label for="desemail">E-mail</label>
-              <input type="email" class="form-control" id="desemail" name="desemail" placeholder="Digite o e-mail" >
+              <input type="email" class="form-control" id="desemail" name="desemail" placeholder="Digite o e-mail">
             </div>
             <div class="form-group">
               <label for="despassword">Senha</label>
