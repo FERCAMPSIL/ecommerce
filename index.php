@@ -180,7 +180,10 @@ $app->post("/admin/forgot/reset", function(){
 
 	$user->get((int)$forgot["iduser"]);
 
-	$user->setPassword($_POST["password"]);
+	$password = password_hash($_POST["password"], PASSWORD_DEFAULT, [
+		"cost"=>12
+	]);
+	$user->setPassword($password);
 
 	$page =  new PageAdmin([
 		"header"=>false,
