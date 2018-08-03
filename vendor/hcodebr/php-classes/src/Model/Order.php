@@ -18,6 +18,7 @@ class Order extends Model {
 			':idaddress'=>$this->getidaddress(),
 			':vltotal'=>$this->getvltotal()
 		]);
+		
 		if (count($results) > 0) {
 			$this->setData($results[0]);
 		}

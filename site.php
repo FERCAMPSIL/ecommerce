@@ -144,6 +144,7 @@ $app->get("/checkout", function(){
 	]);
 });
 
+
 $app->post("/checkout", function(){
 
 	User::verifyLogin(false);
@@ -185,17 +186,18 @@ $app->post("/checkout", function(){
 	$address->setData($_POST);
 	$address->save();
 	$cart = Cart::getFromSession();
-	$totals = $cart->getCalculateTotal();
+	$cart->getCalculateTotal();
 	$order = new Order();
 	$order->setData([
 		'idcart'=>$cart->getidcart(),
 		'idaddress'=>$address->getidaddress(),
 		'iduser'=>$user->getiduser(),
 		'idstatus'=>OrderStatus::EM_ABERTO,
-		'vltotal'=>$totals['vlprice'] + $cart->getvlfreight()
+		'vltotal'=>$cart->getvltotal()
 	]);
+
 	$order->save();
-	header("location : /order/".$order->getidorder());
+	header("location:/order/".$order->getidorder());
 	exit;
 });
 
@@ -381,7 +383,7 @@ $app->get("/boleto/:idorder", function($idorder){
 	$dadosboleto["valor_boleto"] = $valor_boleto; 	// Valor do Boleto - REGRA: Com vírgula e sempre com duas casas depois da virgula
 	// DADOS DO SEU CLIENTE
 	$dadosboleto["sacado"] = $order->getdesperson();
-	$dadosboleto["endereco1"] = $order->getdesaddress() . " " . $order->getdesdistrict();
+	$dadosboleto["endereco1"] = utf8_decode($order->getdesaddress()) . " " . $order->getdesdistrict();
 	$dadosboleto["endereco2"] = $order->getdescity() . " - " . $order->getdesstate() . " - " . $order->getdescountry() . " -  CEP: " . $order->getdeszipcode();
 	// INFORMACOES PARA O CLIENTE
 	$dadosboleto["demonstrativo1"] = "Pagamento de Compra na Loja Hcode E-commerce";
@@ -416,4 +418,25 @@ $app->get("/boleto/:idorder", function($idorder){
 	require_once($path . "layout_itau.php");
 });
 
+$app->get("/profile/orders",  function(){
+
+	User::verifyLogin(false);
+
+	$user = User::getFromSession();
+
+	$page =  new Page();
+	$page->setTpl("profile-orders",[
+		'orders'=>$user->getOrders()
+	]);
+});
+$app->get("/profile/orders/:idorder", function($idorder){
+
+	User::verifyLogin(false);
+	$order =  new Order();
+	$order->get((int)$idorder);
+	$page =  new Page();
+	$page->setTpl("profile-orders",[
+		'order'=>$order->getValues()
+	]);
+});
 ?>
