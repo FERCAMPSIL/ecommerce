@@ -40,7 +40,7 @@ class Address extends Model {
 			":idperson"=>$this->getidperson(),
 			":desaddress"=>utf8_decode($this->getdesaddress()),
 			":desnumber"=>utf8_decode($this->getdesnumber()),
-			":descomplement"=>utf8_dencode($this->getdescomplement()),
+			":descomplement"=>utf8_decode($this->getdescomplement()),
 			":descity"=>utf8_decode($this->getdescity()),
 			":desstate"=>utf8_decode($this->getdesstate()),
 			":descountry"=>utf8_decode($this->getdescountry()),
